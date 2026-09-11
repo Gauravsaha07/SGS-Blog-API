@@ -1,18 +1,18 @@
 const express = require('express')
 const cors = require('cors')
 const connectDB = require('./config/dbConfig')
-const { connection } = require('mongoose')
 const dotenv = require('dotenv').config()
 
 const PORT = process.env.PORT || 5511
 
 const app = express()
 
+// CORS middleware right after app initialization
 app.use(cors())
 
 // Body-parser
 app.use(express.json())
-app.use(express.urlencoded())
+app.use(express.urlencoded({ extended: true }))
 
 // DB connection
 connectDB()
@@ -23,7 +23,10 @@ app.get("/", (req, res) => {
     })
 })
 
+// Auth routes (mounted BEFORE blog routes)
+app.use("/api/blog/auth", require("./routes/authRoutes"))
 
-app.use("/api/blog" , require("./routes/blogRoutes"))
+// Blog routes
+app.use("/api/blog", require("./routes/blogRoutes"))
 
 app.listen(PORT, () => console.log(`SERVER IS RUNNING AT PORT : ${PORT}`))

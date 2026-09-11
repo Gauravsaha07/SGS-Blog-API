@@ -18,9 +18,13 @@ const blogSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
         required: true
+    },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     }
 }, {
-    timeStamps: true
+    timestamps: true
 })
 
 
