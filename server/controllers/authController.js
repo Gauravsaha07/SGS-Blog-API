@@ -2,9 +2,11 @@ const User = require('../models/userModel');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
+const JWT_SECRET = process.env.JWT_SECRET || "sgs_blog_fallback_dev_secret_2026";
+
 // Helper to generate JWT token
 const generateToken = (id) => {
-    return jwt.sign({ id }, process.env.JWT_SECRET, {
+    return jwt.sign({ id }, JWT_SECRET, {
         expiresIn: '30d'
     });
 };
