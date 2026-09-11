@@ -1,4 +1,5 @@
 const express = require('express')
+const cors = require('cors')
 const connectDB = require('./config/dbConfig')
 const { connection } = require('mongoose')
 const dotenv = require('dotenv').config()
@@ -7,6 +8,7 @@ const PORT = process.env.PORT || 5511
 
 const app = express()
 
+app.use(cors())
 
 // Body-parser
 app.use(express.json())
